@@ -7,12 +7,12 @@
 #IncludeRegexTransform: 
 
 /home/viki/catkin_ws/src/beginner_tutorials/src/talker.cpp
+sstream
+-
 ros/ros.h
 /home/viki/catkin_ws/src/beginner_tutorials/src/ros/ros.h
 std_msgs/String.h
 /home/viki/catkin_ws/src/beginner_tutorials/src/std_msgs/String.h
-sstream
--
 
 /opt/ros/indigo/include/XmlRpcDecl.h
 ros/macros.h
