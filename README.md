@@ -4,7 +4,7 @@
 
 - These beginner tutorials explore the basics of ROS including packages, nodes, topics, and messages. The tutorials were followed from: http://wiki.ros.org/ROS/Tutorials. 
 
-- This tutorial consists of a publisher node talker, and a subscriber node listener. The talker node publishes a message of type std_msgs/String on the chatter topic. The listener node is subsribed to the chatter topic. When a message comes from talker, listener will receive it. The publisher node prints the string, and the listener node prints "I heard" followed by the string. The string in this tutorial is "Steven Gambino, ENPM808X."
+- This tutorial consists of a publisher node named talker, and a subscriber node named listener. The talker node publishes a message of type std_msgs/String on the chatter topic. The listener node is subscribed to the chatter topic. When a message comes from talker, listener will get the information. The publisher node prints a string, and the listener node prints "I heard" followed by the string. The string in this tutorial is "Steven Gambino, ENPM808X."
 
 ### How to Build
  
