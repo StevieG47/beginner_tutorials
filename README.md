@@ -8,7 +8,7 @@
 
 ### How to Build
  
--Create the catkin workspace and build with:
+- Create the catkin workspace and build with:
 ```
 mkdir catkin_ws
 cd catkin_ws
