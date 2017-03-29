@@ -35,7 +35,7 @@ rosrun beginner_tutorials talker
 
 
 
-#### Run subsriber node:
+#### Run subscriber node:
 - Open another terminal:
 ```
 cd ~catkin_ws/src
