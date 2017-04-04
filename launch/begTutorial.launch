@@ -1,0 +1,22 @@
+<launch>
+
+<arg name = "talkFreq" default = "10" />
+
+<node
+pkg = "beginner_tutorials"
+type = "talker"
+name = "talker"
+output = "screen"
+args = "$(arg talkFreq)"
+
+/>
+
+<node
+pkg = "beginner_tutorials"
+type = "listener"
+name = "listener"
+output = "screen"
+launch-prefix = "gnome-terminal --command"
+/>
+
+</launch>

@@ -18,9 +18,9 @@
  */
 
 #include <sstream>
+#include <cstdlib>
 #include "ros/ros.h"
 #include "std_msgs/String.h"
-
 #include "beginner_tutorials/NewMessage.h"
 
 std::string message = "Steven Gambino, ENPM808X";
@@ -76,7 +76,12 @@ int main(int argc, char **argv) {
   ros::Publisher chatter_pub = n.advertise < std_msgs::String
       > ("chatter", 1000);
 
-  ros::Rate loop_rate(10);
+  int rate = 10;  //defualt of 10
+  if (argc == 2) {  //if argument is given arc will equal 2, otherwise 1
+    rate = atoi(argv[1]);  //argv[1] is the argument talkFreq when we say talkFreq:=value in roslaunch command
+  }
+  ros::Rate loop_rate(rate);
+  ROS_INFO_STREAM("Currrent Rate: " << rate);
 
       ros::ServiceServer service = n.advertiseService("update_service", update);
 
@@ -84,6 +89,7 @@ int main(int argc, char **argv) {
    * A count of how many messages we have sent. This is used to create
    * a unique string for each message.
    */
+
   int count = 0;
   while (ros::ok()) {
     /**
@@ -95,7 +101,8 @@ int main(int argc, char **argv) {
     ss << message << " " << count;
     msg.data = ss.str();
 
-    ROS_INFO("%s", msg.data.c_str());
+    //ROS_INFO("%s", msg.data.c_str());
+    // ROS_INFO_STREAM("Currrent Rate: " << rate);
 
     /**
      * The publish() function is how you send messages. The parameter

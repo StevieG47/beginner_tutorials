@@ -1,3 +1,5 @@
+## Overview
+
 To build/run:
 
 Assuming there is existing catkin_ws and catkin_ws/src:
@@ -13,4 +15,8 @@ T3: source devel/setup.bash
 T4: source devel/setup.bash
     rosservice list --> to view service, update_service should be there
     
-    rosservice call /update_service <NewString>
+    rosservice call /update_service NewString
+
+Should see talker and listener working like they did before.
+Then when service is called the talker/listener message should change to 
+whatever your NewString is.

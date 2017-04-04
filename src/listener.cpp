@@ -61,7 +61,7 @@ int main(int argc, char **argv) {
   beginner_tutorials::NewMessage::Request req;
   beginner_tutorials::NewMessage::Response res;
 
-    req.messReq = "Steven Gambino ";
+    req.messReq = "Steven Gambino";
 
   bool success = client.call(req, res);
   if (success) {
