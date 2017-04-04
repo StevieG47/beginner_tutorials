@@ -15,7 +15,13 @@
  LIABILITY, WHETHER IN AN ACTION OF CONTRACT, TORT OR OTHERWISE, ARISING FROM,
  OUT OF OR IN CONNECTION WITH THE SOFTWARE OR THE USE OR OTHER DEALINGS IN THE
  SOFTWARE.
+ * @copyright Copyright 2017 Steven Gambino
+ * @file talker.cpp
+ * @author Steven Gambino
+ * @brief Talker node to publish to chatter topic with message.
+ *
  */
+
 
 #include <sstream>
 #include <cstdlib>
@@ -23,7 +29,13 @@
 #include "std_msgs/String.h"
 #include "beginner_tutorials/NewMessage.h"
 
-std::string message = "Steven Gambino, ENPM808X";
+std::string message = "Steven Gambino, ENPM808X";  //Message from master, message without service
+
+/**
+ * @brief Updates message to subsribe, send to listener
+ * @param request and response from srv
+ * @return true
+ */
 bool update(beginner_tutorials::NewMessage::Request &req,
     beginner_tutorials::NewMessage::Response &res)
     {
@@ -73,18 +85,18 @@ int main(int argc, char **argv) {
    * than we can send them, the number here specifies how many messages to
    * buffer up before throwing some away.
    */
-  ros::Publisher chatter_pub = n.advertise < std_msgs::String
+  ros::Publisher chatter_pub = n.advertise < std_msgs::String  //publisher
       > ("chatter", 1000);
 
   int rate = 10;  //defualt of 10
-  if (argc == 2) {  //if argument is given arc will equal 2, otherwise 1
+  if (argc == 2) {  //if argument is given from launch arc will equal 2, otherwise 1
     rate = atoi(argv[1]);  //argv[1] is the argument talkFreq when we say talkFreq:=value in roslaunch command
     ROS_DEBUG_STREAM("Frequency changed to " << rate);
   }
-  ros::Rate loop_rate(rate);
+  ros::Rate loop_rate(rate);  //set the rate
   ROS_INFO_STREAM("Currrent Rate: " << rate);
 
-      ros::ServiceServer service = n.advertiseService("update_service", update);
+  ros::ServiceServer service = n.advertiseService("update_service", update);  //Server
 
   /**
    * A count of how many messages we have sent. This is used to create
@@ -99,7 +111,7 @@ int main(int argc, char **argv) {
     std_msgs::String msg;
 
     std::stringstream ss;
-    ss << message << " " << count;
+    ss << message << " " << count;  //Whatever the message is, will change depending on service
     msg.data = ss.str();
 
     ROS_INFO_STREAM(msg.data.c_str());
