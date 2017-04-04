@@ -56,28 +56,27 @@ int main(int argc, char **argv) {
    */
   ros::NodeHandle n;
 
-  ros::ServiceClient client = n.serviceClient < beginner_tutorials::NewMessage  //Client
+  ros::ServiceClient client = n.serviceClient < beginner_tutorials::NewMessage  // Client
       > ("update_service");
 
-  //Only run service if commanded to, not automatically
+  // Only run service if commanded to, not automatically
   bool run;
-  run = ros::service::waitForService("update_service", 100000);  //Will wait for rosservice call /update_service, 2nd arg is time to wait
+  run = ros::service::waitForService("update_service", 100000);  // Will wait for rosservice call /update_service, 2nd arg is time to wait
 
-  if (run) {  //run service message if it is called
-
-    beginner_tutorials::NewMessage::Request req;  //request and response from srv
-  beginner_tutorials::NewMessage::Response res;
+  if (run) {  // run service message if it is called
+    beginner_tutorials::NewMessage::Request req;  // request and response from srv
+    beginner_tutorials::NewMessage::Response res;
 
     req.messReq = "Steven Gambino";
 
   bool success = client.call(req, res);
   if (success) {
-      ROS_INFO_STREAM("Updated message with service");  //client call was worked
+      ROS_INFO_STREAM("Updated message with service");  // client call was worked
   } else {
-      ROS_ERROR_STREAM("FAILED to call service");  //If for some reason client call doesnt work
+      ROS_ERROR_STREAM("FAILED to call service");  // If for some reason client call doesnt work
   }
   } else {
-    ROS_WARN_STREAM("Update Service not called...");  //If service has not been called...
+    ROS_WARN_STREAM("Update Service not called...");  // If service has not been called...
   }
 
   /**
@@ -95,9 +94,9 @@ int main(int argc, char **argv) {
    * is the number of messages that will be buffered up before beginning to throw
    * away the oldest ones.
    */
-  ros::Subscriber sub = n.subscribe("chatter", 1000, chatterCallback);  //subscriber
+  ros::Subscriber sub = n.subscribe("chatter", 1000, chatterCallback);  // subscriber
   if (sub == false) {
-    ROS_FATAL_STREAM("Subscribe Error, did not subcribe");  //for some reason subscriber didnt work
+    ROS_FATAL_STREAM("Subscribe Error, did not subcribe");  // for some reason subscriber didnt work
   }
 
   /**

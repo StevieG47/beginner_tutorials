@@ -25,20 +25,20 @@
 
 #include <sstream>
 #include <cstdlib>
+#include <string>
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "beginner_tutorials/NewMessage.h"
 
-std::string message = "Steven Gambino, ENPM808X";  //Message from master, message without service
+
 
 /**
  * @brief Updates message to subsribe, send to listener
  * @param request and response from srv
  * @return true
  */
-bool update(beginner_tutorials::NewMessage::Request &req,
-    beginner_tutorials::NewMessage::Response &res)
-    {
+bool update(beginner_tutorials::NewMessage::Request &req,  // NOLINT
+    beginner_tutorials::NewMessage::Response &res) {  // NOLINT
       message = req.messReq;
       res.messResp = message;
   ROS_INFO_STREAM("Updating with new message");
@@ -49,6 +49,8 @@ bool update(beginner_tutorials::NewMessage::Request &req,
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
 int main(int argc, char **argv) {
+  std::string message = "Steven Gambino, ENPM808X";  // Message from master, message without service
+
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
    * any ROS arguments and name remapping that were provided at the command line.
@@ -85,18 +87,18 @@ int main(int argc, char **argv) {
    * than we can send them, the number here specifies how many messages to
    * buffer up before throwing some away.
    */
-  ros::Publisher chatter_pub = n.advertise < std_msgs::String  //publisher
+  ros::Publisher chatter_pub = n.advertise < std_msgs::String  // publisher
       > ("chatter", 1000);
 
-  int rate = 10;  //defualt of 10
-  if (argc == 2) {  //if argument is given from launch arc will equal 2, otherwise 1
-    rate = atoi(argv[1]);  //argv[1] is the argument talkFreq when we say talkFreq:=value in roslaunch command
+  int rate = 10;  // defualt of 10
+  if (argc == 2) {  // if argument is given from launch arc will equal 2, otherwise 1
+    rate = atoi(argv[1]);  // argv[1] is the argument talkFreq when we say talkFreq:=value in roslaunch command
     ROS_DEBUG_STREAM("Frequency changed to " << rate);
   }
-  ros::Rate loop_rate(rate);  //set the rate
+  ros::Rate loop_rate(rate);  // set the rate
   ROS_INFO_STREAM("Currrent Rate: " << rate);
 
-  ros::ServiceServer service = n.advertiseService("update_service", update);  //Server
+  ros::ServiceServer service = n.advertiseService("update_service", update);  // Server
 
   /**
    * A count of how many messages we have sent. This is used to create
@@ -111,7 +113,7 @@ int main(int argc, char **argv) {
     std_msgs::String msg;
 
     std::stringstream ss;
-    ss << message << " " << count;  //Whatever the message is, will change depending on service
+    ss << message << " " << count;  // Whatever the message is, will change depending on service
     msg.data = ss.str();
 
     ROS_INFO_STREAM(msg.data.c_str());
