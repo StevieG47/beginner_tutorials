@@ -29,7 +29,7 @@ bool update(beginner_tutorials::NewMessage::Request &req,
     {
       message = req.messReq;
       res.messResp = message;
-      ROS_INFO("Updating with new message");
+  ROS_INFO_STREAM("Updating with new message");
       return true;
     }
 
@@ -79,6 +79,7 @@ int main(int argc, char **argv) {
   int rate = 10;  //defualt of 10
   if (argc == 2) {  //if argument is given arc will equal 2, otherwise 1
     rate = atoi(argv[1]);  //argv[1] is the argument talkFreq when we say talkFreq:=value in roslaunch command
+    ROS_DEBUG_STREAM("Frequency changed to " << rate);
   }
   ros::Rate loop_rate(rate);
   ROS_INFO_STREAM("Currrent Rate: " << rate);
@@ -101,7 +102,7 @@ int main(int argc, char **argv) {
     ss << message << " " << count;
     msg.data = ss.str();
 
-    //ROS_INFO("%s", msg.data.c_str());
+    ROS_INFO_STREAM(msg.data.c_str());
     // ROS_INFO_STREAM("Currrent Rate: " << rate);
 
     /**

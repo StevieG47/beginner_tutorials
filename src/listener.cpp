@@ -26,7 +26,7 @@
  * This tutorial demonstrates simple receipt of messages over the ROS system.
  */
 void chatterCallback(const std_msgs::String::ConstPtr& msg) {
-  ROS_INFO("I heard: [%s]", msg->data.c_str());
+  ROS_DEBUG_STREAM("I heard: " << msg->data.c_str());
 }
 
 int main(int argc, char **argv) {
@@ -54,7 +54,7 @@ int main(int argc, char **argv) {
 
   //Only run service if commanded to, not automatically
   bool run;
-  run = ros::service::waitForService("update_service", -1);
+  run = ros::service::waitForService("update_service", 100000);
 
   if (run) {  //run service message if it is called
 
@@ -67,8 +67,10 @@ int main(int argc, char **argv) {
   if (success) {
     ROS_INFO_STREAM("Updated message with service");
   } else {
-    ROS_ERROR("FAILED to call service");
+      ROS_ERROR_STREAM("FAILED to call service");
   }
+  } else {
+    ROS_WARN_STREAM("Update Service not called...");
   }
 
   /**
@@ -87,6 +89,9 @@ int main(int argc, char **argv) {
    * away the oldest ones.
    */
   ros::Subscriber sub = n.subscribe("chatter", 1000, chatterCallback);
+  if (sub == false) {
+    ROS_FATAL_STREAM("Subscribe Error, did not subcribe");
+  }
 
   /**
    * ros::spin() will enter a loop, pumping callbacks.  With this version, all

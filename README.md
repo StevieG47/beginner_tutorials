@@ -36,3 +36,6 @@ roslaunch beginner_tutorials begTutorial.launch talkFreq:=3
 
 ANother window for listener node should open, frequ should be 3
 
+
+Logger level screenshots added with Debug and Info severity
+
