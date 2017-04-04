@@ -20,6 +20,8 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 
+#include "beginner_tutorials/NewMessage.h"
+
 /**
  * This tutorial demonstrates simple receipt of messages over the ROS system.
  */
@@ -46,6 +48,28 @@ int main(int argc, char **argv) {
    * NodeHandle destructed will close down the node.
    */
   ros::NodeHandle n;
+
+  ros::ServiceClient client = n.serviceClient < beginner_tutorials::NewMessage
+      > ("update_service");
+
+  //Only run service if commanded to, not automatically
+  bool run;
+  run = ros::service::waitForService("update_service", -1);
+
+  if (run) {  //run service message if it is called
+
+  beginner_tutorials::NewMessage::Request req;
+  beginner_tutorials::NewMessage::Response res;
+
+    req.messReq = "Steven Gambino ";
+
+  bool success = client.call(req, res);
+  if (success) {
+    ROS_INFO_STREAM("Updated message with service");
+  } else {
+    ROS_ERROR("FAILED to call service");
+  }
+  }
 
   /**
    * The subscribe() call is how you tell ROS that you want to receive messages

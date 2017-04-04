@@ -21,17 +21,7 @@
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 
-#include "beginner_tutorials/NewMessage.h"
 
-std::string message = "Steven Gambino, ENPM808X";
-bool update(beginner_tutorials::NewMessage::Request &req,
-    beginner_tutorials::NewMessage::Response &res)
-    {
-      message = req.messReq;
-      res.messResp = message;
-      ROS_INFO("Updating with new message");
-      return true;
-    }
 
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
@@ -78,8 +68,6 @@ int main(int argc, char **argv) {
 
   ros::Rate loop_rate(10);
 
-      ros::ServiceServer service = n.advertiseService("update_service", update);
-
   /**
    * A count of how many messages we have sent. This is used to create
    * a unique string for each message.
@@ -92,7 +80,7 @@ int main(int argc, char **argv) {
     std_msgs::String msg;
 
     std::stringstream ss;
-    ss << message << " " << count;
+    ss << "Steven Gambino, ENPM808X " << count;
     msg.data = ss.str();
 
     ROS_INFO("%s", msg.data.c_str());
