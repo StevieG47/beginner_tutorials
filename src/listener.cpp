@@ -33,6 +33,7 @@
  * @param message from subscriber
  */
 void chatterCallback(const std_msgs::String::ConstPtr& msg) {
+  ROS_DEBUG_STREAM("Call " << "Back");
   ROS_INFO_STREAM("I heard: " << msg->data.c_str());
 }
 

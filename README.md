@@ -9,6 +9,13 @@
 - All five logging levels are now included between the two nodes. Some screenshots of rqt_console are also included.
 
 
+### Dependencies
+- ROS Indigo
+- catkin
+- roscpp package
+- std_msgs package
+
+
 ### How to Build
  
 - Create the catkin workspace and build with:
@@ -29,7 +36,7 @@ catkin_make
 - Open another terminal:
 ```
 cd ~catkin_ws
-source beginner_tutorials/devel/setup.bash
+source devel/setup.bash
 rosrun beginner_tutorials talker
 ```
 
@@ -42,8 +49,8 @@ rosrun beginner_tutorials talker
 #### Run subscriber node:
 - Open another terminal:
 ```
-cd ~catkin_ws/src
-source beginner_tutorials/devel/setup.bash
+cd ~catkin_ws
+source devel/setup.bash
 rosrun beginner_tutorials listener
 ```
 - The output when running should look like this: 
@@ -51,51 +58,35 @@ rosrun beginner_tutorials listener
 ![listener output](https://cloud.githubusercontent.com/assets/25371934/24433450/c4167bc0-13f6-11e7-884a-628734a7f32d.JPG)
 
 
-### Dependencies
-- ROS Indigo
-- catkin
-- roscpp package
-- std_msgs package
+#### Calling Service
+- A service has been added in the talker node to change the message.
 
+- To call service, first follow the steps above to have the talker/listener nodes up and running. Then open a new terminal.
 
-## Overview
+- View services with:
+```rosservice list```
+The service */update_service* should be one of the listed.
 
-To build/run:
-
-Assuming there is existing catkin_ws and catkin_ws/src:
-Put all these files into src
-Go back to catkin_ws
-catkin_make
-Open 4 terminals
-T1: roscore
-T2: source devel/setup.bash
-    rosrun beginner_tutorials talker
-T3: source devel/setup.bash
-    rosrun beginner_tutorials listener
-T4: source devel/setup.bash
-    rosservice list --> to view service, update_service should be there
-    
-    rosservice call /update_service NewString
-
-Should see talker and listener working like they did before.
-Then when service is called the talker/listener message should change to 
-whatever your NewString is.
-
-
-Added launch, to build/run:
-
-Go to catkin_ws (assuming you have catkin_ws/src)
-
-paste files from repo in catkin_ws/src
-
-catkin_make
-
+- Call service with:
+```
+cd ~catkin_ws
 source devel/setup.bash
+rosservice call /update_service NewString
+``` 
+where NewString is the new message to write. No quotes are needed. 
 
-roslaunch beginner_tutorials begTutorial.launch talkFreq:=3
+-An example output is seen below.
 
-ANother window for listener node should open, frequ should be 3
+#### Using Launch File
+- Using the launch file *begTutorial.launch*, The nodes can be started at once using one command. Also, running the launch file and giving an argument *talkFreq*, the publish frequency can be changed.
 
+- To use launch file:
+```
+cd ~catkin_ws
+roslaunch beginner_tutorials begTutorial.launch talkFreq:=4
+```
+talkFreq:=# sets the publish frequency, so if using the line above, the publish frequency would be equal to 4.
 
-Logger level screenshots added with Debug and Info severity
+- After running, a new window with the listener node output will pop up, and the original terminal will have the talker node. The talker node output should like something like this:
+
 

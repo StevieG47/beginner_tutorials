@@ -22,13 +22,14 @@
  *
  */
 
-
+#include <ros/console.h>
 #include <sstream>
 #include <cstdlib>
 #include <string>
 #include "ros/ros.h"
 #include "std_msgs/String.h"
 #include "beginner_tutorials/NewMessage.h"
+
 
 
 // Message from master, message without service
@@ -50,8 +51,6 @@ bool update(beginner_tutorials::NewMessage::Request &req,  // NOLINT
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
 int main(int argc, char **argv) {
-
-
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
    * any ROS arguments and name remapping that were provided at the command line.
@@ -93,6 +92,9 @@ int main(int argc, char **argv) {
 
   int rate = 10;  // defualt of 10
   if (argc == 2) {  // if argument is given from launch arc will equal 2, otherwise 1
+    if (atoi(argv[1]) < 0) {
+      ROS_ERROR_STREAM("Negative Frequency Entered");
+    }
     rate = atoi(argv[1]);  // argv[1] is the argument talkFreq when we say talkFreq:=value in roslaunch command
     ROS_DEBUG_STREAM("Frequency changed to " << rate);
   }
@@ -122,7 +124,10 @@ int main(int argc, char **argv) {
     ss << message << " " << count;  // Whatever the message is, will change depending on service
     msg.data = ss.str();
 
-    ROS_INFO_STREAM(msg.data.c_str());
+    // ROS_INFO_STREAM(msg.data.c_str());
+    ROS_DEBUG_STREAM("Current Rate: " << rate);
+
+
     // ROS_INFO_STREAM("Currrent Rate: " << rate);
 
     /**
