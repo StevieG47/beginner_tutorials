@@ -33,7 +33,7 @@
  * @param message from subscriber
  */
 void chatterCallback(const std_msgs::String::ConstPtr& msg) {
-  ROS_DEBUG_STREAM("I heard: " << msg->data.c_str());
+  ROS_INFO_STREAM("I heard: " << msg->data.c_str());
 }
 
 int main(int argc, char **argv) {
@@ -55,29 +55,6 @@ int main(int argc, char **argv) {
    * NodeHandle destructed will close down the node.
    */
   ros::NodeHandle n;
-
-  ros::ServiceClient client = n.serviceClient < beginner_tutorials::NewMessage  // Client
-      > ("update_service");
-
-  // Only run service if commanded to, not automatically
-  bool run;
-  run = ros::service::waitForService("update_service", 100000);  // Will wait for rosservice call /update_service, 2nd arg is time to wait
-
-  if (run) {  // run service message if it is called
-    beginner_tutorials::NewMessage::Request req;  // request and response from srv
-    beginner_tutorials::NewMessage::Response res;
-
-    req.messReq = "Steven Gambino";
-
-  bool success = client.call(req, res);
-  if (success) {
-      ROS_INFO_STREAM("Updated message with service");  // client call was worked
-  } else {
-      ROS_ERROR_STREAM("FAILED to call service");  // If for some reason client call doesnt work
-  }
-  } else {
-    ROS_WARN_STREAM("Update Service not called...");  // If service has not been called...
-  }
 
   /**
    * The subscribe() call is how you tell ROS that you want to receive messages

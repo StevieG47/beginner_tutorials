@@ -1,3 +1,63 @@
+# ROS Beginner Tutorials Week 10 HW Branch
+
+### Overview
+
+- The talker/listener nodes were modified in this branch to include a service that, when called, changes the output message.
+
+- A launch file was also added to run the talker and listener at the same time. When running the launch file from the command line an argument can also be given to change the publish frequency.
+
+- All five logging levels are now included between the two nodes. Some screenshots of rqt_console are also included.
+
+
+### How to Build
+ 
+- Create the catkin workspace and build with:
+```
+mkdir catkin_ws
+cd catkin_ws
+mkdir src
+cd src
+git clone -b Week10_HW --recursive https://github.com/StevieG47/beginner_tutorials
+cd ..
+catkin_make
+```
+
+### Running Talker/Listener Nodes
+- Open a terminal and run: ```roscore```
+
+#### Run publisher node:
+- Open another terminal:
+```
+cd ~catkin_ws
+source beginner_tutorials/devel/setup.bash
+rosrun beginner_tutorials talker
+```
+
+- The output when running should look like this:
+
+![talker output](https://cloud.githubusercontent.com/assets/25371934/24433456/cf0f2752-13f6-11e7-89f4-c15ca678c98c.JPG)
+
+
+
+#### Run subscriber node:
+- Open another terminal:
+```
+cd ~catkin_ws/src
+source beginner_tutorials/devel/setup.bash
+rosrun beginner_tutorials listener
+```
+- The output when running should look like this: 
+
+![listener output](https://cloud.githubusercontent.com/assets/25371934/24433450/c4167bc0-13f6-11e7-884a-628734a7f32d.JPG)
+
+
+### Dependencies
+- ROS Indigo
+- catkin
+- roscpp package
+- std_msgs package
+
+
 ## Overview
 
 To build/run:

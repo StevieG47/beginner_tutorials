@@ -31,7 +31,8 @@
 #include "beginner_tutorials/NewMessage.h"
 
 
-
+// Message from master, message without service
+std::string message = "Steven Gambino, ENPM808X";  // NOLINT
 /**
  * @brief Updates message to subsribe, send to listener
  * @param request and response from srv
@@ -49,7 +50,7 @@ bool update(beginner_tutorials::NewMessage::Request &req,  // NOLINT
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
 int main(int argc, char **argv) {
-  std::string message = "Steven Gambino, ENPM808X";  // Message from master, message without service
+
 
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
@@ -95,6 +96,11 @@ int main(int argc, char **argv) {
     rate = atoi(argv[1]);  // argv[1] is the argument talkFreq when we say talkFreq:=value in roslaunch command
     ROS_DEBUG_STREAM("Frequency changed to " << rate);
   }
+
+  if (rate < 3) {
+    ROS_WARN_STREAM("publisher frequency is slow");
+  }
+
   ros::Rate loop_rate(rate);  // set the rate
   ROS_INFO_STREAM("Currrent Rate: " << rate);
 
