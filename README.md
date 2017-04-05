@@ -58,13 +58,13 @@ rosrun beginner_tutorials listener
 ![listener output](https://cloud.githubusercontent.com/assets/25371934/24433450/c4167bc0-13f6-11e7-884a-628734a7f32d.JPG)
 
 
-#### Calling Service
+### Calling Service
 - A service has been added in the talker node to change the message.
 
 - To call service, first follow the steps above to have the talker/listener nodes up and running. Then open a new terminal.
 
 - View services with:
-```rosservice list```
+*rosservice list*
 The service */update_service* should be one of the listed.
 
 - Call service with:
@@ -77,10 +77,13 @@ where NewString is the new message to write. No quotes are needed.
 
 -An example output is seen below.
 
-#### Using Launch File
+![servicescapture](https://cloud.githubusercontent.com/assets/25371934/24688782/4880f5fe-1990-11e7-9e60-b9abfd9c79fd.JPG)
+
+
+### Using Launch File
 - Using the launch file *begTutorial.launch*, The nodes can be started at once using one command. Also, running the launch file and giving an argument *talkFreq*, the publish frequency can be changed.
 
-- To use launch file:
+- To use launch file make sure roscore is running, then:
 ```
 cd ~catkin_ws
 roslaunch beginner_tutorials begTutorial.launch talkFreq:=4
@@ -88,5 +91,8 @@ roslaunch beginner_tutorials begTutorial.launch talkFreq:=4
 talkFreq:=# sets the publish frequency, so if using the line above, the publish frequency would be equal to 4.
 
 - After running, a new window with the listener node output will pop up, and the original terminal will have the talker node. The talker node output should like something like this:
+
+![launchfiletalk](https://cloud.githubusercontent.com/assets/25371934/24688793/5d49092c-1990-11e7-94ce-75f82fa48d86.JPG)
+
 
 
