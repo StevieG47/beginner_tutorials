@@ -27,6 +27,7 @@
 #include <cstdlib>
 #include <string>
 #include "ros/ros.h"
+#include <tf/transform_broadcaster.h>
 #include "std_msgs/String.h"
 #include "beginner_tutorials/NewMessage.h"
 
@@ -108,6 +109,9 @@ int main(int argc, char **argv) {
 
   ros::ServiceServer service = n.advertiseService("update_service", update);  // Server
 
+  //TF broadcast
+  static tf::TransformBroadcaster br;
+  tf::Transform transform;
   /**
    * A count of how many messages we have sent. This is used to create
    * a unique string for each message.
@@ -124,7 +128,7 @@ int main(int argc, char **argv) {
     ss << message << " " << count;  // Whatever the message is, will change depending on service
     msg.data = ss.str();
 
-    // ROS_INFO_STREAM(msg.data.c_str());
+    ROS_INFO_STREAM(msg.data.c_str());
     ROS_DEBUG_STREAM("Current Rate: " << rate);
 
 
@@ -137,6 +141,14 @@ int main(int argc, char **argv) {
      * in the constructor above.
      */
     chatter_pub.publish(msg);
+
+    //TF broadcaster
+    transform.setOrigin(tf::Vector3(1.0, 2.0, 3.0));
+    tf::Quaternion q;
+    q.setRPY(10, 20, 30);
+    transform.setRotation(q);
+    br.sendTransform(
+        tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
 
     ros::spinOnce();
 
