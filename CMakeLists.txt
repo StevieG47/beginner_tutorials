@@ -12,6 +12,22 @@ find_package(catkin REQUIRED COMPONENTS
  tf
 )
 
+#gtest
+#catkin_add_gtest(Itest test/talkerTest.cpp)
+if (CATKIN_ENABLE_TESTING)
+ find_package(rostest REQUIRED)
+ add_rostest_gtest(testnode test/talkerTest.launch 
+ test/talkerTest.cpp)
+ target_link_libraries(testnode ${catkin_LIBRARIES})
+
+  add_dependencies(
+  testnode
+  talker
+  #${PROJECT_NAME}_generate_messages_cpp
+  ${catkin_EXPORTED_TARGETS}
+  )
+#...
+endif()
 ## System dependencies are found with CMake's conventions
 # find_package(Boost REQUIRED COMPONENTS system)
 
