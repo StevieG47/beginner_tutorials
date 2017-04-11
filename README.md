@@ -97,6 +97,8 @@ talkFreq:=# sets the publish frequency, so if using the line above, the publish 
 
 ![launchfiletalk](https://cloud.githubusercontent.com/assets/25371934/24688793/5d49092c-1990-11e7-94ce-75f82fa48d86.JPG)
 
+To run the launch file without specifying frequency, run the above commands without *talkFreq:=#*
+
 
 ### Tranforms with tf Library
 
@@ -149,7 +151,7 @@ roslaunch beginner_tutorials begTutorial.launch
 
 This will run the talker and listener node like before, with no recording. 
 
-- To enable recording navigate to catkin_ws:
+- To enable recording, navigate to catkin_ws:
 ```
 source devel/setup.bash
 roslaunch beginner_tutorials begTutorial.launch startRecord:=true
