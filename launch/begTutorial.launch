@@ -2,6 +2,8 @@
 
 <arg name = "talkFreq" default = "10" />
 
+<arg name = "startRecord" default = "false" />
+
 <node
 pkg = "beginner_tutorials"
 type = "talker"
@@ -17,6 +19,16 @@ type = "listener"
 name = "listener"
 output = "screen"
 launch-prefix = "gnome-terminal --command"
+/>
+
+<node
+pkg = "rosbag"
+type = "record"
+name = "rosbag_record_all"
+respawn = "true"
+output = "screen"
+args = "-a -O File"
+if = "$(arg startRecord)"
 />
 
 </launch>

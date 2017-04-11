@@ -95,4 +95,14 @@ talkFreq:=# sets the publish frequency, so if using the line above, the publish 
 ![launchfiletalk](https://cloud.githubusercontent.com/assets/25371934/24688793/5d49092c-1990-11e7-94ce-75f82fa48d86.JPG)
 
 
+### TF
+there are two frames, world and talk, talk was included in talker.cpp, in talker node. To see the translation, rotation rosrun beginner_tutorials talker then in new window rosrun tf tf_echo world talk and then info should be constantly displayed showing translation and rotation in quaternion and whatever. 
+
+### Test
+Tests directory added with a test node. The test is the service NewMessage that was previously made. A client is made to that service and the clients existence is tested. Passing means that service has a client, nothing went wrong. Run with catkin_make run_tests, it should build then do the test and let you know if it was a success or failure.
+### Bag
+Default on the launch file is false so run launch command with no arguments won't have it record. Running it then putting startRecord:=true after will enable the rosbag record -a and record everything. The bag file is saved in the .ros folder (in home) and is called File.bag
+
+
+
 
