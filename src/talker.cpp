@@ -22,12 +22,12 @@
  *
  */
 
+#include <tf/transform_broadcaster.h>
 #include <ros/console.h>
 #include <sstream>
 #include <cstdlib>
 #include <string>
 #include "ros/ros.h"
-#include <tf/transform_broadcaster.h>
 #include "std_msgs/String.h"
 #include "beginner_tutorials/NewMessage.h"
 
@@ -51,6 +51,11 @@ bool update(beginner_tutorials::NewMessage::Request &req,  // NOLINT
 /**
  * This tutorial demonstrates simple sending of messages over the ROS system.
  */
+/**
+ * @brief talker node
+ * @param argc argv
+ * @return 0
+ */
 int main(int argc, char **argv) {
   /**
    * The ros::init() function needs to see argc and argv so that it can perform
@@ -71,23 +76,7 @@ int main(int argc, char **argv) {
    */
   ros::NodeHandle n;
 
-  /**
-   * The advertise() function is how you tell ROS that you want to
-   * publish on a given topic name. This invokes a call to the ROS
-   * master node, which keeps a registry of who is publishing and who
-   * is subscribing. After this advertise() call is made, the master
-   * node will notify anyone who is trying to subscribe to this topic name,
-   * and they will in turn negotiate a peer-to-peer connection with this
-   * node.  advertise() returns a Publisher object which allows you to
-   * publish messages on that topic through a call to publish().  Once
-   * all copies of the returned Publisher object are destroyed, the topic
-   * will be automatically unadvertised.
-   *
-   * The second parameter to advertise() is the size of the message queue
-   * used for publishing messages.  If messages are published more quickly
-   * than we can send them, the number here specifies how many messages to
-   * buffer up before throwing some away.
-   */
+
   ros::Publisher chatter_pub = n.advertise < std_msgs::String  // publisher
       > ("chatter", 1000);
 
@@ -109,9 +98,11 @@ int main(int argc, char **argv) {
 
   ros::ServiceServer service = n.advertiseService("update_service", update);  // Server
 
-  //TF broadcast
+  // TF broadcast
   static tf::TransformBroadcaster br;
   tf::Transform transform;
+
+
   /**
    * A count of how many messages we have sent. This is used to create
    * a unique string for each message.
@@ -142,13 +133,13 @@ int main(int argc, char **argv) {
      */
     chatter_pub.publish(msg);
 
-    //TF broadcaster
-    transform.setOrigin(tf::Vector3(1.0, 2.0, 3.0));
+    // TF broadcaster
+    transform.setOrigin(tf::Vector3(1.0, 2.0, 3.0));  // set translation
     tf::Quaternion q;
-    q.setRPY(10, 20, 30);
+    q.setRPY(10, 20, 30);  // set rotations
     transform.setRotation(q);
     br.sendTransform(
-        tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));
+        tf::StampedTransform(transform, ros::Time::now(), "world", "talk"));  // broadcast talk with parent world
 
     ros::spinOnce();
 

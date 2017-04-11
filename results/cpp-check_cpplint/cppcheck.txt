@@ -1,5 +1,7 @@
+Checking ../test/talkerTest.cpp...
+1/3 files checked 17% done
 Checking listener.cpp...
-1/2 files checked 41% done
+2/3 files checked 53% done
 Checking talker.cpp...
-2/2 files checked 100% done
+3/3 files checked 100% done
 Checking usage of global functions..
